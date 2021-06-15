@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 
 mongoose.connect(process.env.url,{useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection
