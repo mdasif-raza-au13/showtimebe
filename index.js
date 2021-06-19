@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import bookingapi from './routes/bookingapi.js'
+import userapi from './routes/userapi.js'
+import adminapi from './routes/adminapi.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -17,6 +19,8 @@ db.once('open',() => console.log('database connected'));
 app.use(bodyParser.json())
 app.use(cors())
 app.use('/api',bookingapi)
+app.use('/user',userapi)
+app.use('/admin',adminapi)
 app.get('/',(req, res) => {
     res.send('Route is perfect')
 })
