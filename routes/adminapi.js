@@ -73,17 +73,18 @@ router.post('/login',async (req,res) => {
 });
 
 
-router.get('/info',(req,res) => {
-    const token = req.headers['x-access-token'];
-    if(!token) res.send({auth: false, token: 'No token provided'});
-    jwt.verify(token,process.env.SECRET,(err,user) => {
-        if(err) res.send('error while fetching');
-        Admin.findById(user.id,(err,result) => {
-            if(err) throw err;
-            res.send(result);
-        })
-    })
-})
+// for localhost only
+// router.get('/info',(req,res) => {
+//     const token = req.headers['x-access-token'];
+//     if(!token) res.send({auth: false, token: 'No token provided'});
+//     jwt.verify(token,process.env.SECRET,(err,user) => {
+//         if(err) res.send('error while fetching');
+//         Admin.findById(user.id,(err,result) => {
+//             if(err) throw err;
+//             res.send(result);
+//         })
+//     })
+// })
 
 
 // for edit
