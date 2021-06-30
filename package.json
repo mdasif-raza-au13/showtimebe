@@ -1,32 +1,31 @@
 {
-  "name": "showtime_api",
+  "name": "react-chat-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "react blog",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js",
-    "start": "node index.js",
-    "heroku-postbuild": "cd client/bookmyticket_client&&npm install&&npm run build"
+  "engine": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
   },
-  "author": "",
+  "scripts": {
+    "start": "node index.js",
+    "build": "nodemon server/index.js",
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
+  },
+  "author": "John ahn",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "debug": "^4.1.1",
-    "dotenv": "^8.2.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "node-fetch": "^2.6.0",
-    "path": "^0.12.7",
-    "pg": "^7.18.2",
-    "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.5"
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.4.20",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "fs": "0.0.1-security",
-    "nodemon": "^2.0.2"
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.19.1"
   }
 }

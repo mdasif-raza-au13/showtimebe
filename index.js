@@ -1,48 +1,40 @@
 const express = require("express");
 const app = express();
-const bodyparser = require("body-parser");
-const cors = require("cors");
-const path = require("path");
-var authRouter = require("./routes/auth");
-var SignupRouter = require("./routes/usersignup");
-// Post = require("./models/model.post");
-const apiRouter = require("./routes/api.router");
-city1 = require("./models/sample");
-console.log(city1);
-//cors
-app.use(cors());
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+// const config = require("./config/key");
+const mongoose = require("mongoose");
+require('dotenv').config()
 
-//bodyparser
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: true }));
-//Db Connection
-const db = require("./config/db.config");
-db.authenticate()
-  .then(() => {
-    console.log(" Db connected Successfully!");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-//Routes
+const connect = mongoose.connect(process.env.url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
 
-app.use("/api", apiRouter);
-app.use("/auth", authRouter);
-app.use("/userSignup", SignupRouter);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
-//Port
-const port = process.env.PORT || 5000;
-const ENV = process.env.NODE_ENV;
-if (ENV === "production") {
-  app.use(
-    express.static(path.join(__dirname, "./client/bookmyticket_client/build"))
-  );
-  app.use((req, res) => {
-    res.sendFile(
-      path.join(__dirname, "./client/bookmyticket_client/build/index.html")
-    );
+app.use('/api/users', require('./routes/users'));
+app.use('/api/comment', require('./routes/comment'));
+app.use('/api/like', require('./routes/like'));
+app.use('/api/favorite', require('./routes/favorite'));
+
+
+app.use('/uploads', express.static('uploads'));
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+const port = process.env.PORT || 5000
+
 app.listen(port, () => {
-  console.log(`Runnning on ${port}`);
+  console.log(`Server Running at ${port}`)
 });
