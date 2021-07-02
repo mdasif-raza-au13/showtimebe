@@ -1,7 +1,7 @@
 {
-  "name": "react-chat-app",
+  "name": "showtimebe",
   "version": "1.0.0",
-  "description": "react blog",
+  "description": "",
   "main": "index.js",
   "engine": {
     "node": "10.16.0",
@@ -9,10 +9,9 @@
   },
   "scripts": {
     "start": "node index.js",
-    "build": "nodemon server/index.js",
-    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
+    "build": "nodemon index.js"
   },
-  "author": "John ahn",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
